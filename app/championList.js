@@ -29,12 +29,15 @@
 
 
             var latestVersion = this.state.championList.version;
+            var sortedChampKeys = _.sortBy(_.keys(this.state.championList.champs));
 
-            var championNodes = _.map(this.state.championList.champs, function (champion) {
+            var championNodes = _.map(sortedChampKeys, function (champKey) {
                 var champUrl = "http://ddragon.leagueoflegends.com/cdn/" +
                                 latestVersion +
-                                "/img/champion/" + champion.key + ".png";
-                return <img className="champ-square" src={champUrl}></img>;
+                                "/img/champion/" + champKey + ".png";
+                return (
+                    <img alt={champKey} className="champ-square" src={champUrl}></img>
+                );
             });
 
             if (championNodes.length) {
