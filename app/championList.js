@@ -41,10 +41,15 @@
             });
 
             if (championNodes.length) {
-                content = championNodes;
+                content = (
+                    <div>
+                        <h1 className="champ-select-header">Select a champion:</h1>
+                        <div>{championNodes}</div>
+                    </div>
+                );
             }
 
-            return <div>{content}</div>;
+            return content;
         }
     });
 
