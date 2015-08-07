@@ -1,27 +1,33 @@
-(function () {
-    "use strict";
-    var ChampionInfo = require("./championInfo.jsx");
+import {ChampionInfo} from "./championInfo";
 
-    var Champions = React.createClass({
-        displayName: "Champions",
-
-        getInitialState: function () {
-            return {
-                championList: []
+    class Champions extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                championInfo: {}
             };
-        },
+        }
 
-        componentDidMount: function () {
+        componentDidMount() {
             $.get("/championlist", function (response) {
-                if (this.isMounted()) {
-                    this.setState({
-                        championList: response
-                    });
-                }
+                this.setState({
+                    championList: response
+                });
             }.bind(this));
-        },
+        }
 
-        render: function () {
+        handleClick(championKey, version) {
+            React.render(
+                <ChampionInfo champKey={championKey} version={version}/>,
+                document.getElementById("content")
+            );
+        }
+
+        render() {
+            if (!this.state.championList) {
+                return false;
+            }
+
             var content = (
                 <span>
                     There was an error retrieving the list of champions.
@@ -52,18 +58,12 @@
             }
 
             return content;
-        },
-
-        handleClick: function (championKey, version) {
-            React.render(
-                <ChampionInfo champKey={championKey} version={version}/>,
-                document.getElementById("content")
-            );
         }
-    });
+    }
 
-    React.render(
-        <Champions />,
-        document.getElementById("content")
-    );
-}());
+Champions.displayName = "Champions";
+
+React.render(
+    <Champions />,
+    document.getElementById("content")
+);
