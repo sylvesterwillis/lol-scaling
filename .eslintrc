@@ -9,7 +9,8 @@
         "document": true,
         "React": true,
         "ReactBootstrap": true,
-        "require": true
+        "require": true,
+        "module": true
     },
 
     "plugins": [

@@ -1,5 +1,6 @@
 (function () {
     "use strict";
+    var ChampionInfo = require("./championInfo.jsx");
 
     var Champions = React.createClass({
         displayName: "Champions",
@@ -22,23 +23,24 @@
 
         render: function () {
             var content = (
-                        <span>
-                            There was an error retriving the list of champions.
-                        </span>
+                <span>
+                    There was an error retrieving the list of champions.
+                </span>
             );
-
 
             var latestVersion = this.state.championList.version;
             var sortedChampKeys = _.sortBy(_.keys(this.state.championList.champs));
 
-            var championNodes = _.map(sortedChampKeys, function (champKey) {
+            var championNodes = sortedChampKeys.map(function (champKey) {
                 var champUrl = "http://ddragon.leagueoflegends.com/cdn/" +
                                 latestVersion +
                                 "/img/champion/" + champKey + ".png";
                 return (
-                    <img alt={champKey} className="champ-square" src={champUrl}></img>
+                    <img alt={champKey} className="champ-square" key={champKey}
+                         onClick={this.handleClick.bind(this, champKey, latestVersion)}
+                         src={champUrl}></img>
                 );
-            });
+            }.bind(this));
 
             if (championNodes.length) {
                 content = (
@@ -50,6 +52,13 @@
             }
 
             return content;
+        },
+
+        handleClick: function (championKey, version) {
+            React.render(
+                <ChampionInfo champKey={championKey} version={version}/>,
+                document.getElementById("content")
+            );
         }
     });
 

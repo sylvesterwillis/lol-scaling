@@ -6,57 +6,39 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-reactify');
 
     // Project configuration.
     grunt.initConfig({
         eslint: {
-            target: ['app/*.js']
+            target: ['app/*.jsx']
         },
-        browserify: {
-            options: {
-                transform: ["babelify"],
-                browserifyOptions: {
-                    paths: [
-                        "./app"
-                    ],
-                    extensions: [".js", ".json", ".jsx"]
-                }
-            },
-            build: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: "./app",
-                        src: "*",
-                        dest: "./static/js/dist/",
-                        ext: ".js"
-                    }
-                ]
-            }
+        reactify: {
+            './static/js': './app/*.jsx'
         },
-        react: {
-            combined_file_output: {
-                files: {
-                    './static/js/dist/index.js': [
-                        './app/championList.js'
-                    ]
-                }
-            },
-            dynamic_mappings: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: './static/js/frontend',
-                        src: ['**/*.jsx'],
-                        dest: './static/js/dist/dest',
-                        ext: '.js'
-                    }
-                ]
-            }
-        },
+        // react: {
+        //     combined_file_output: {
+        //         files: {
+        //             './static/js/dist/index.js': [
+        //                 './app/championList.js'
+        //             ]
+        //         }
+        //     },
+        //     dynamic_mappings: {
+        //         files: [
+        //             {
+        //                 expand: true,
+        //                 cwd: './static/js/frontend',
+        //                 src: ['**/*.jsx'],
+        //                 dest: './static/js/dist/dest',
+        //                 ext: '.js'
+        //             }
+        //         ]
+        //     }
+        // },
         watch: {
             scripts: {
-                files: ['./app/*.js'],
+                files: ['./app/*.jsx'],
                 tasks: ['eslint', 'react'],
                 options: {
                     spawn: false
@@ -65,7 +47,5 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['eslint', 'react']);
-    grunt.registerTask('prod', ['eslint', 'browserifyProd']);
-
+    grunt.registerTask('default', ['eslint', 'reactify']);
 };
