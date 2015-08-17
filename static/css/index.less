@@ -1,24 +1,56 @@
+@aliceblue: #f0f8ff;
+@cadetblue: #5f9ea0;
+@element-shadows: 0 2px 20px rgba(0,0,0,0.26);
+
 body {
     padding: 1px;
+}
 
-    header#head {
-        padding-bottom: 20px;
+header#head {
+    background-color: @cadetblue;
+    box-shadow: @element-shadows;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
 
-        div#logo {
-            h1 {
-                margin-top: 0px;
-            }
+    div#logo {
+        h1 {
+            margin-top: 0px;
+            display: inline;
+        }
+
+        button#back-to-champ-list{
+            float: right;
+            display: inline;
+            margin-top: 10px;
+            background-color: @aliceblue;
+            border: 0;
+            box-shadow: @element-shadows;
         }
     }
-    div.content {
-        .champ-select-header {
-            text-align: center;
+}
+
+div#content {
+    .champ-select-header {
+        text-align: center;
+    }
+    
+    .champion-picture-wrapper {
+        margin: 5px;
+        float: left;
+
+        .champion-square {
+            width: 50%;
+            box-shadow: @element-shadows;
         }
 
-        .champ-square {
-            width: 60px;
-            height: 60px;
-             margin: 5px;
+        .champion-picture-name {
+            display: block;
+        }
+    }
+
+    .champion-info {
+        .champion-info-name {
+            text-align: center;
         }
     }
 }

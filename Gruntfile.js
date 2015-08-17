@@ -7,6 +7,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-nodemon');
 
     // Project configuration.
     grunt.initConfig({
@@ -53,10 +54,15 @@ module.exports = function(grunt) {
                 }
             }
         },
+        nodemon: {
+            dev: {
+                script: 'server.js'
+            }
+        },
         watch: {
             scripts: {
                 files: ['./app/*.jsx', './static/css/*.less'],
-                tasks: ['clean', 'eslint', 'less:development', 'babel', 'browserify'],
+                tasks: ['clean', 'eslint', 'less:development', 'babel', 'browserify', 'nodemon'],
                 options: {
                     spawn: false
                 }
@@ -64,5 +70,5 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', ['clean', 'eslint', 'less:development', 'babel', 'browserify']);
+    grunt.registerTask('default', ['clean', 'eslint', 'less:development', 'babel', 'browserify', 'nodemon']);
 };

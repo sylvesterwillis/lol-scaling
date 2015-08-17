@@ -1,4 +1,6 @@
 /*eslint no-unused-vars:0*/
+import {Champions} from "./championList";
+
 export class ChampionInfo extends React.Component {
 
     constructor(props) {
@@ -22,9 +24,17 @@ export class ChampionInfo extends React.Component {
 
     render() {
         if (this.state && this.state.championInfo) {
+            $("#back-to-champ-list").show();
+            $("#back-to-champ-list").click(function () {
+                React.render(
+                    <Champions />,
+                    document.getElementById("content")
+                );
+            });
+
             return (
-                <div>
-                    <h1>
+                <div className="champion-info">
+                    <h1 className="champion-info-name">
                         {this.state.championInfo.name}: {this.state.championInfo.title}
                     </h1>
                 </div>
