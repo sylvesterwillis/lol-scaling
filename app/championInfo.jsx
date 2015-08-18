@@ -42,7 +42,7 @@ export class ChampionInfo extends React.Component {
         }
         else {
             return (
-                <div></div>
+                <div>Champion info could not be found.</div>
             );
         }
     }
