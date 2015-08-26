@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         clean: ['./static/css/dist', './static/js/dist'],
 
         eslint: {
-            target: ['app/*.jsx']
+            target: ['app/**/*.jsx']
         },
         less: {
             development: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: './app',
-                        src: ['./*.jsx'],
+                        src: ['./**/*.jsx'],
                         dest: './static/js/dist',
                         ext: '.js'
                     }
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         },
         watch: {
             scripts: {
-                files: ['./app/*.jsx', './static/css/*.less'],
+                files: ['./app/**/*.jsx', './static/css/*.less'],
                 tasks: ['clean', 'eslint', 'less:development', 'babel', 'browserify', 'nodemon'],
                 options: {
                     spawn: false

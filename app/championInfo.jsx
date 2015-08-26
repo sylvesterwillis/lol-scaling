@@ -1,5 +1,6 @@
 /*eslint no-unused-vars:0*/
 import {Champions} from "./championList";
+import * as ChampionInfoPartial from "./partials/championInfoPartial";
 
 export class ChampionInfo extends React.Component {
 
@@ -33,11 +34,7 @@ export class ChampionInfo extends React.Component {
             });
 
             return (
-                <div className="champion-info">
-                    <h1 className="champion-info-name">
-                        {this.state.championInfo.name}: {this.state.championInfo.title}
-                    </h1>
-                </div>
+                ChampionInfoPartial.championContainer(this.state.championInfo)
             );
         }
         else {

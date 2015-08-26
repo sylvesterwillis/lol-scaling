@@ -45,7 +45,7 @@ export class Champions extends React.Component {
                             "/img/champion/" + champKey + ".png";
             return (
                 <div className="champion-picture-wrapper" key={champKey + "-wrapper"}>
-                    <img alt={champKey} className="champion-square" key={champKey}
+                    <img alt={champKey} className="champion-square material-shadow" key={champKey}
                          onClick={this.handleClick.bind(this, champKey, latestVersion)}
                          src={champUrl}></img>
                     <span className="champion-picture-name" key={champKey + "-name"}>
