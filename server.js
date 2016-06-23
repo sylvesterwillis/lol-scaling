@@ -1,57 +1,45 @@
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
-var bodyParser = require('body-parser');
-var mongoose   = require('mongoose');
-var path       = require("path");
-var request    = require("request");
+// server.js
+// where your node app starts
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// init project
+var fs = require('fs'),
+    express = require('express'),
+    Mustache = require('mustache'),
+    app = express(),
+    jsxtransform = require('express-jsxtransform'),
+    Request = require("request");
 
-//setup static directories
-app.use("/vendor", express.static(__dirname + '/vendor'));
-app.use("/static", express.static(__dirname + '/static'));
+// we've started you off with Express, 
+// but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-var port = process.env.PORT || 8080;        // set our port
-var router = express.Router();              // get an instance of the express Router
+// http://expressjs.com/en/starter/static-files.html
+app.use(jsxtransform());
+app.use(express.static('public'));
 
-router.get('/', function(req, res) {
-    res.sendfile(path.join(__dirname+'/index.html'));
+// http://expressjs.com/en/starter/basic-routing.html
+app.get("/", function (req, res) {
+  res.sendFile('views/index.html', {root: __dirname });
 });
 
-var championRequest = express.Router();
+app.get("/championList", function(req, res){
+  var apiKey = process.env.RIOT_API_KEY;
+  var riotUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=" + apiKey;
+  var riotVersionsUrl = "https://ddragon.leagueoflegends.com/api/versions.json";
 
-championRequest.route('/championlist')
-.get(function(req, res) {
-    var apiKey = process.env.RIOT_API_KEY;
-    var riotUrl = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=" + apiKey;
-    var riotVersionsUrl = "http://ddragon.leagueoflegends.com/api/versions.json";
+  Request(riotUrl, function(error, response, body) {
+      if(error) {
+          res.send(error);
+      }
 
-    request(riotUrl, function(error, response, body) {
-        if(error) {
-            res.send(error);
-        }
+      var parsedJSON = JSON.parse(body);
 
-        var champs = JSON.parse(body).data;
-
-        request(riotVersionsUrl, function(error, response, body) {
-            if(error) {
-                res.send(error);
-            }
-
-            var latestVersion = JSON.parse(body)[0];
-
-            res.send({version: latestVersion, champs: champs});
-        });
-
-    });
+      var champs = parsedJSON.data;
+      var latestVersion = parsedJSON.version;
+      res.send({version: latestVersion, champs: champs});
+  });
 });
 
-// REGISTER OUR ROUTES -------------------------------
-app.use('', router);
-app.use('/', championRequest);
-
-app.listen(port);
-console.log('Magic happens on port ' + port);
+// listen for requests :)
+listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});

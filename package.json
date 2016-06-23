@@ -1,28 +1,33 @@
 {
-  "name": "lol-scaling",
-  "main": "server.js",
-  "dependencies": {
-    "express": "~4.0.0",
-    "mongoose": "~3.6.13",
-    "body-parser": "~1.0.1",
-    "request": "~2.60"
-  },
-  "devDependencies": {
-    "babel-eslint": "^4.0.5",
-    "babelify": "~6.1",
-    "bower": "~1.4.1",
-    "browserify": "~11",
-    "eslint": "~0.24",
-    "eslint-plugin-react": "~3.0",
-    "grunt": "~0.4",
-    "grunt-babel": "~5.0",
-    "grunt-browserify": "~3.8",
-    "grunt-cli": "~0.1",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-watch": "~0.6",
-    "grunt-eslint": "~16",
-    "grunt-nodemon": "^0.4.0",
-    "react-tools": "~0.13"
-  }
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+
+	"name": "lol-scaling",
+	"version": "0.0.1",
+	"description": "What am I about?",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+    "express": "^4.12.4",
+    "bootstrap": "4.0.0-alpha.2",
+		"express-jsxtransform": "^4.0.2",
+		"request" : "2.72.0"
+	},
+	"engines": {
+		"node": "4.4.3"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://hyperdev.com/#!/project/welcome-project"
+	},
+	"keywords": [
+		"node",
+		"hyperdev",
+		"express",
+		"react"
+	],
+	"license": "MIT"
 }
